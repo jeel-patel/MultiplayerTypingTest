@@ -1,0 +1,100 @@
+.links {
+  text-decoration: none;
+
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.plink{
+    text-decoration:underline;
+}
+.plink:active{
+    color:red;
+}
+.plink:hover{
+    color: rgb(255, 5, 5);
+}
+
+#leaderBoardTable{
+    border: 2px solid black;
+    width:70vw;
+    margin: auto;
+    margin-top: 5px;
+
+    border-spacing: 0px;
+}
+#leaderBoardTable>tbody>tr:nth-child(odd) > td{
+    background-color: #ffd1d1;
+    color: black;
+}
+#leaderBoardTable>tbody>tr:nth-child(odd) > td > a{
+    color: black;
+}
+#leaderBoardTable>tbody>tr:nth-child(even) > td{
+    background-color: #ee9b9b;
+}
+#leaderBoardTable>tbody>tr:nth-child(even) > td > a{
+    color: white;
+}
+
+#leaderBoardTable>tbody>th{
+    text-align: left;
+    font-size: 2ch;
+}
+#leaderBoardTable>tbody>tr > th{
+    background-color: rgb(0, 0, 0);
+}
+
+#leaderBoardTable>tbody>tr>td, #leaderBoardTable>tbody>tr>th{
+    padding-left: 10px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+
+    border: 1px solid black;
+}
+
+#mainrow > td{
+    background-color:rgba(163, 139, 61, 0.541);
+    color: white;
+}
+
+#leaderBoardTable>tbody>tr:nth-child(1){
+    border-bottom: 2px solid black;
+}
+
+#profileResults{
+    display: flex;
+    position: fixed;
+    top: 3.5ch;
+    right: 40px;
+
+    flex-direction: column;
+}
+#profileResults > a{
+    border: 1px solid black;
+}
+#profileResults > div >a:hover{
+    text-decoration:underline;
+}
+#profileResults > div:nth-child(odd) > a{
+    color: rgb(255, 255, 255);
+}
+#profileResults > div:nth-child(even){
+    background-color: #ff9494;
+}
+#profileResults > div:nth-child(odd){
+    background-color: #2b0f0f;
+}
+
+.links
+{
+    text-decoration: none;
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+a:active{
+    color: rgb(37, 84, 238);
+}
+a:hover{
+    color:  rgb(87, 120, 230);
+}

@@ -1,0 +1,125 @@
+#name {
+  display: none;
+  text-align: center;
+}
+#container {
+  width: 90vw;
+  margin: auto;
+}
+
+#timer {
+  display: block;
+  text-align: center;
+  font-size: 3ch;
+}
+
+#content {
+  line-height: 1.5;
+  line-break: strict;
+
+  font-family: "Open Sans", sans-serif;
+  font-family: "Space Mono", monospace;
+
+  background-color: rgb(255, 255, 255);
+  color: black;
+
+  font-size: 3ch;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 4ch;
+
+  border: 2px solid black;
+  margin-top: 5vh;
+  margin-bottom: 2vh;
+  padding: 10px;
+
+  overflow-y: hidden;
+
+  user-select: none;
+}
+#typing {
+  display: block;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  max-height: 2.4ch;
+  width: 100%;
+  padding: 3px;
+
+  line-height: 1.5;
+
+  font-family: "Open Sans", sans-serif;
+  font-family: "Space Mono", monospace;
+
+  font-size: 3ch;
+
+  border: 2px solid black;
+
+  resize: none;
+  overflow-y: hidden;
+
+  user-select: none;
+}
+#buttons {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+}
+#start {
+  /* margin: auto; */
+  justify-self: right;
+  display: inline;
+  margin-top: 10px;
+  margin-left: 1vw;
+}
+#reset {
+  /* margin: auto; */
+  display: inline;
+  margin-top: 10px;
+  justify-items: left;
+
+  margin-left: 1vw;
+}
+#results {
+  margin-top: 2vh;
+  display: block;
+  text-align: center;
+}
+.align {
+  display: inline;
+}
+line {
+  transform-origin: 50% 50%;
+  /* animation: r 5s ease-in-out infinite alternate; */
+  transform: rotate(-45deg);
+  transition-property: transform;
+  transition-duration: 350ms;
+  transition-timing-function: ease-in-out;
+}
+svg {
+  padding: 3px;
+  width: 180px;
+  height: 180px;
+  margin-left: calc(50% - 90px);
+  margin-top: 50px;
+
+  /* background-color:crimson; */
+  fill: white;
+  font-size: 15px;
+
+  font-family: "Courier New", Courier, monospace;
+}
+#speedometer {
+  display: flex;
+  flex-direction: column;
+}
+#svg1 {
+  margin-left: calc(50% - 180px);
+}
+#svg2 {
+  margin-top: -185px;
+  margin-left: calc(50% + 30px);
+}

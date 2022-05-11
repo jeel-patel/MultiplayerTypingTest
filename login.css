@@ -1,0 +1,57 @@
+#loginBody {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 300vw 300vh;
+  animation: gradient 7s ease infinite;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#buttons > td{
+    /* border: 2px solid red; */
+    /* width: 50%; */
+}
+#login > div{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: center;
+}
+.homeButtons{
+    padding-left: 7px;
+    padding-right: 7px;
+    margin: 3px;
+    font-size: 17px;
+
+    border-radius: 5px;
+}
+#homeTable{
+    margin: 0 auto;
+    margin-top: 30vh;
+    font-size: 27px;
+    
+}
+.homeInputs{
+    font-size: 20px;
+    padding: 3px;
+
+    border-radius: 5px;
+
+    height: 30px;
+}
+#buttons {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+}
