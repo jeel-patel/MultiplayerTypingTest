@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        #content{
+            display:inline;
+            margin: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    {{!-- <div class="navbar">
+        <div class="links"><a href="{{{link}}}">{{{link_name}}}</a></div>
+        <div class="links"><a href="http://localhost:4000/test">Test</a></div>
+        <div class="links"><a href="http://localhost:4000/leaderboard">Leaderboard</a></div>
+    </div> --}}
+    
+    <form action = "/signup" method="post">
+        Username: <input type="text" name="username" id="uname">
+        Password: <input type="password" name="password" id="passwd">
+        <button id="submit" name="submit" type="submit">Submit</button>
+    </form>
+
+</body>
+
+<script>
+
+    document.getElementById('submit').addEventListener('click', function(){
+
+        let xml = new XMLHttpRequest();
+        xml.open('POST', 'http://localhost:2000/signup', true);
+        xml.setRequestHeader('Content-type', 'application/json');
+
+        xml.onload = function(){
+            window.location.href = 'http://localhost:2000/';
+        }
+        
+        let obj=  {
+            uname : document.getElementById('uname').value,
+            password : document.getElementById('passwd').value
+        }
+
+        xml.send(JSON.stringify(obj));
+    });
+
+
+</script>
+
+
+</html>

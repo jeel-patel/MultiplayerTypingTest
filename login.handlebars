@@ -1,0 +1,101 @@
+<body id="loginBody">
+    <table id="homeTable">
+        <tr>
+            <td><input type="text" name="username" placeholder="Username" id="username" class="homeInputs"></td>
+        </tr>
+        <tr>
+            <td><input type="password" name="password" placeholder="Password" id="password" class="homeInputs"></td>
+        </tr>
+        <tr id="buttons">
+            <td id="login" colspan="2">
+                <div>
+                    <button id="submit" name="ok" class="homeButtons">Login</button>
+                    <button id="signup" name="signup" class="homeButtons">SignUp</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+<script>
+
+    document.getElementById('submit').addEventListener('click', function () {
+
+        let xml = new XMLHttpRequest();
+        xml.open('POST', 'http://localhost:4000/login', false);
+
+        xml.setRequestHeader('Content-type', 'application/json');
+
+        xml.onload = function () {
+            console.log(this.responseText);
+            if(JSON.parse(this.responseText).status === 'success')
+            {
+                // alert('Success!');
+                console.log('Login success!');
+                window.location.href = 'http://localhost:4000/test';
+            }
+            else
+            {
+                alert('Username or password is wrong!');
+            }
+        }
+
+        let obj = {
+            uname: document.getElementById('username').value,
+            password: document.getElementById('password').value
+        };
+
+        xml.send(JSON.stringify(obj));
+    });
+
+    document.getElementById('signup').addEventListener('click', function () {
+
+        let obj;
+        let xml = new XMLHttpRequest();
+        xml.open('POST', 'http://localhost:4000/signup', true);
+
+        xml.setRequestHeader('Content-type', 'application/json');
+
+        xml.onload = function () {
+            console.log(this.responseText);
+            obj = JSON.parse(this.responseText);
+
+            if(obj.status === 'success')
+            {
+                alert('Successfully created user now you can login');
+                return;
+            }
+            else if(obj.status === 'falied')
+            {
+                alert('Username is already taken try with another username');
+                return;
+            }
+            else
+            {
+                alert('There is some internal error pls try again');
+                return;
+            }
+        }
+        xml.send(JSON.stringify({
+            uname : document.getElementById('username').value,
+            password : document.getElementById('password').value
+        }));
+    });
+
+    function postRequest(data, url){
+
+        let ans;
+        let xml = new XMLHttpRequest();
+        xml.open('POST', url, false);
+
+        xml.setRequestHeader('Content-type', 'application/json');
+
+        xml.onload = function () {
+            console.log(this.responseText);
+            ans = JSON.parse(this.responseText);
+        }
+        xml.send(JSON.stringify(data));
+        return ans;
+    }
+
+</script>

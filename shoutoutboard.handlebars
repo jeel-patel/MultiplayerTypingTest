@@ -1,0 +1,171 @@
+<div id="mainSection">
+    <div id="upperSection"></div>
+    <div id="bottomSection">
+        <input type="text" id="messageBox">
+        <button onclick="sendMessage()">Send Message</button>
+    </div>
+</div>
+
+<script>
+    var lastData = 0;
+    var allCompleted = false;
+    var loading = false;
+
+    loadData();
+
+    document.getElementById('upperSection').addEventListener('scroll', (e)=>{
+        
+        let element = document.getElementById('upperSection');
+        
+        //console.log(element.scrollHeight, element.scrollTop, element.clientHeight);
+        // console.log((element.scrollTop*100)/element.scrollHeight);
+        let perscentageScrolled = (element.clientHeight/(element.scrollHeight - element.scrollTop))*100;
+
+        if( perscentageScrolled>=80 && !loading )
+        {
+            loadData();
+        }
+
+    })
+
+    function loadData()
+    {
+      loading = true;
+      if(allCompleted)
+      {
+        return;
+      }
+
+      let headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Content-Type": "application/json"
+      }
+
+      let bodyContent = JSON.stringify({
+        "lastData" : lastData
+      });
+
+      fetch("http://localhost:4000/loadComments", { 
+        method: "POST",
+        body: bodyContent,
+        headers: headersList
+      }).then(function(response) {
+        return response.json();
+      }).then(function(d) {
+        console.log(d);
+
+        allCompleted = d.isAllCompleted;
+
+        let str = '';
+        
+        //{likeStatus : , commentId : , likes : , dislikes : , comment : , commentBy : }
+
+        for(let i=0; i<d.content.length; i++) {
+            
+            if(d.content[i].likeStatus==true)
+            {
+                str = str + `<div id="${d.content[i].commentId}"><content>${d.content[i].comment}</content><data><div><i class="fas fa-thumbs-up" onclick="likeDislike(${d.content[i].commentId}, true)">${d.content[i].likes} </i><i class="far fa-thumbs-down" onclick="likeDislike(${d.content[i].commentId}, false)">${d.content[i].dislikes}</i></div><div>- <a class='author' href="http://localhost:4000/profile/${d.content[i].commentBy}">${d.content[i].commentBy}</a></div></data></div>`;
+            }
+            else if(d.content[i].likeStatus==false)
+            {
+                str = str + `<div id="${d.content[i].commentId}"><content>${d.content[i].comment}</content><data><div><i class="far fa-thumbs-up" onclick="likeDislike(${d.content[i].commentId}, true)">${d.content[i].likes} </i><i class="fas fa-thumbs-down" onclick="likeDislike(${d.content[i].commentId}, false)">${d.content[i].dislikes}</i></div><div>- <a class='author' href="http://localhost:4000/profile/${d.content[i].commentBy}">${d.content[i].commentBy}</a></div></data></div>`;
+            }
+            else
+            {
+                str = str + `<div id="${d.content[i].commentId}"><content>${d.content[i].comment}</content><data><div><i class="far fa-thumbs-up" onclick="likeDislike(${d.content[i].commentId}, true)">${d.content[i].likes} </i><i class="far fa-thumbs-down" onclick="likeDislike(${d.content[i].commentId}, false)">${d.content[i].dislikes}</i></div><div>- <a class='author' href="http://localhost:4000/profile/${d.content[i].commentBy}">${d.content[i].commentBy}</a></div></data></div>`;
+            }
+        }
+
+        lastData = lastData + d.content.length;
+        document.getElementById('upperSection').innerHTML += str;
+        loading = false;
+      
+      });
+        
+    }
+
+    function likeDislike(cid, action)
+    {
+      let element = document.getElementById(cid).getElementsByTagName('data')[0].getElementsByTagName('div')[0];
+
+      console.log("LikeDislike ",cid, action);
+
+      let headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Content-Type": "application/json"
+      }
+
+      let bodyContent = JSON.stringify({
+        "commentId" : cid,
+        "action" : action
+      });
+
+      fetch("http://localhost:4000/likeDislike", { 
+        method: "POST",
+        body: bodyContent,
+        headers: headersList
+      }).then(function(response) {
+        return response.json();
+      }).then(function(d) {
+
+        console.log(d.commentId);
+        let e = document.getElementById(d.commentId).getElementsByTagName('data')[0].getElementsByTagName('div')[0];
+        console.log(e);
+
+        if(d.status==true)
+        {
+          e.getElementsByTagName('i')[0].className = 'fas fa-thumbs-up';
+          e.getElementsByTagName('i')[1].className = 'far fa-thumbs-down';
+        }
+        else if(d.status==false)
+        {
+          e.getElementsByTagName('i')[0].className = 'far fa-thumbs-up';
+          e.getElementsByTagName('i')[1].className = 'fas fa-thumbs-down';
+        }
+        else
+        {
+          e.getElementsByTagName('i')[0].className = 'far fa-thumbs-up';
+          e.getElementsByTagName('i')[1].className = 'far fa-thumbs-down';
+        }
+
+        e.getElementsByTagName('i')[0].innerText = d.likes;
+        e.getElementsByTagName('i')[1].innerText = d.dislikes;
+
+      });
+
+    }
+
+    function sendMessage()
+    {
+      let message = document.getElementById('messageBox').value.trim();
+
+      if(message==''){
+        alert('Cannot add empty comment');
+        return;
+      }
+
+      let headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Content-Type": "application/json"
+      }
+
+      let bodyContent = JSON.stringify({
+        "comment" : message
+      });
+
+      fetch("http://localhost:4000/postComment", { 
+        method: "POST",
+        body: bodyContent,
+        headers: headersList
+      }).then(function(response) {
+        return response.json();
+      }).then(function(d) {
+        console.log(d.status);
+      });
+    }
+
+
+</script>

@@ -1,0 +1,26 @@
+<body onload="fun()">
+
+    <div id="c"></div>
+    
+</body>
+
+<script>
+
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    async function fun(){
+        let str = "Slow at typing ? Practice now.";
+
+        for(let i=0; i<=str.length; i++)
+        {
+            if(i<=16)
+                await sleep(250);
+            else
+                await sleep(50);
+
+            document.getElementById('c').setAttribute('data-before', str.substring(0,i));
+            
+        }
+    }
+
+</script>
